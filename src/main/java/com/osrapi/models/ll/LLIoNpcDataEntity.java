@@ -133,6 +133,26 @@ public final class LLIoNpcDataEntity {
         title = val;
     }
 
+    /** the savingThrow. */
+    @Column(name = "saving_throw")
+    @JsonProperty("saving_throw")
+    
+    private String                    savingThrow;
+    /**
+     * Gets the savingThrow.
+     * @return {@link String}
+     */
+    public String getSavingThrow() {
+        return savingThrow;
+    }
+    /**
+     * Sets the savingThrow.
+     * @param val the new value
+     */
+    public void setSavingThrow(final String val) {
+        savingThrow = val;
+    }
+
     /** the npcFlags. */
     @Column(name = "npc_flags")
     @JsonProperty("npc_flags")
@@ -153,6 +173,50 @@ public final class LLIoNpcDataEntity {
         npcFlags = val;
     }
 
+    /** the numberAppearingInLair. */
+    @ManyToOne(targetEntity = LLDiceEntity.class, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "numberAppearingInLair")
+    @JsonProperty("num_appearing_in_lair")
+  
+    private LLDiceEntity    numberAppearingInLair;
+    /**
+     * Gets the numberAppearingInLair.
+     * @return {@link LLDiceEntity}
+     */
+    public LLDiceEntity getNumberAppearingInLair() {
+        return numberAppearingInLair;
+    }
+    /**
+     * Sets the numberAppearingInLair.
+     * @param val the new value
+     */
+    public void setNumberAppearingInLair(final LLDiceEntity val) {
+        numberAppearingInLair = val;
+    }
+
+    /** the numberAppearing. */
+    @ManyToOne(targetEntity = LLDiceEntity.class, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "numberAppearing")
+    @JsonProperty("num_appearing")
+  
+    private LLDiceEntity    numberAppearing;
+    /**
+     * Gets the numberAppearing.
+     * @return {@link LLDiceEntity}
+     */
+    public LLDiceEntity getNumberAppearing() {
+        return numberAppearing;
+    }
+    /**
+     * Sets the numberAppearing.
+     * @param val the new value
+     */
+    public void setNumberAppearing(final LLDiceEntity val) {
+        numberAppearing = val;
+    }
+
     /** the name. */
     @Column(name = "name")
     @JsonProperty("name")
@@ -171,6 +235,66 @@ public final class LLIoNpcDataEntity {
      */
     public void setName(final String val) {
         name = val;
+    }
+
+    /** the movePerTurn. */
+    @Column(name = "move_per_turn")
+    @JsonProperty("move_per_turn")
+    
+    private Long                    movePerTurn;
+    /**
+     * Gets the movePerTurn.
+     * @return {@link Long}
+     */
+    public Long getMovePerTurn() {
+        return movePerTurn;
+    }
+    /**
+     * Sets the movePerTurn.
+     * @param val the new value
+     */
+    public void setMovePerTurn(final Long val) {
+        movePerTurn = val;
+    }
+
+    /** the movePerRound. */
+    @Column(name = "move_per_round")
+    @JsonProperty("move_per_round")
+    
+    private Long                    movePerRound;
+    /**
+     * Gets the movePerRound.
+     * @return {@link Long}
+     */
+    public Long getMovePerRound() {
+        return movePerRound;
+    }
+    /**
+     * Sets the movePerRound.
+     * @param val the new value
+     */
+    public void setMovePerRound(final Long val) {
+        movePerRound = val;
+    }
+
+    /** the morale. */
+    @Column(name = "morale")
+    @JsonProperty("morale")
+    
+    private Long                    morale;
+    /**
+     * Gets the morale.
+     * @return {@link Long}
+     */
+    public Long getMorale() {
+        return morale;
+    }
+    /**
+     * Sets the morale.
+     * @param val the new value
+     */
+    public void setMorale(final Long val) {
+        morale = val;
     }
 
     /** the module. */
@@ -313,6 +437,46 @@ public final class LLIoNpcDataEntity {
         internalScript = val;
     }
 
+    /** the icon. */
+    @Column(name = "icon")
+    @JsonProperty("icon")
+    
+    private String                    icon;
+    /**
+     * Gets the icon.
+     * @return {@link String}
+     */
+    public String getIcon() {
+        return icon;
+    }
+    /**
+     * Sets the icon.
+     * @param val the new value
+     */
+    public void setIcon(final String val) {
+        icon = val;
+    }
+
+    /** the hoardClass. */
+    @Column(name = "hoard_class")
+    @JsonProperty("hoard_class")
+    
+    private Long                    hoardClass;
+    /**
+     * Gets the hoardClass.
+     * @return {@link Long}
+     */
+    public Long getHoardClass() {
+        return hoardClass;
+    }
+    /**
+     * Sets the hoardClass.
+     * @param val the new value
+     */
+    public void setHoardClass(final Long val) {
+        hoardClass = val;
+    }
+
     /** the gender. */
     @ManyToOne(targetEntity = LLGenderEntity.class, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
@@ -335,23 +499,45 @@ public final class LLIoNpcDataEntity {
         gender = val;
     }
 
-    /** the damages. */
-    @Column(name = "damages")
-    @JsonProperty("damages")
+    /** the description. */
+    @Column(name = "description")
+    @JsonProperty("description")
     
-    private Float                    damages;
+    private String                    description;
+    /**
+     * Gets the description.
+     * @return {@link String}
+     */
+    public String getDescription() {
+        return description;
+    }
+    /**
+     * Sets the description.
+     * @param val the new value
+     */
+    public void setDescription(final String val) {
+        description = val;
+    }
+
+    /** the damages. */
+    @ManyToOne(targetEntity = LLDiceEntity.class, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "damages")
+    @JsonProperty("dice")
+  
+    private LLDiceEntity    damages;
     /**
      * Gets the damages.
-     * @return {@link Float}
+     * @return {@link LLDiceEntity}
      */
-    public Float getDamages() {
+    public LLDiceEntity getDamages() {
         return damages;
     }
     /**
      * Sets the damages.
      * @param val the new value
      */
-    public void setDamages(final Float val) {
+    public void setDamages(final LLDiceEntity val) {
         damages = val;
     }
 
@@ -515,6 +701,26 @@ public final class LLIoNpcDataEntity {
         behavior = val;
     }
 
+    /** the attacksPerRound. */
+    @Column(name = "attacks_per_round")
+    @JsonProperty("attacks_per_round")
+    
+    private Long                    attacksPerRound;
+    /**
+     * Gets the attacksPerRound.
+     * @return {@link Long}
+     */
+    public Long getAttacksPerRound() {
+        return attacksPerRound;
+    }
+    /**
+     * Sets the attacksPerRound.
+     * @param val the new value
+     */
+    public void setAttacksPerRound(final Long val) {
+        attacksPerRound = val;
+    }
+
     /**
      * the list of {@link LLIoItemDataEntity}s associated with this
      * {@link LLIoNpcDataEntity}.
@@ -571,28 +777,6 @@ public final class LLIoNpcDataEntity {
      */
     public void setGroups(final List<LLGroupEntity> val) {
         groups = val;
-    }
-
-    @ElementCollection
-    @CollectionTable(name = "io_npc_data_scripted_events_lookup",
-  schema = "ll", joinColumns = @JoinColumn(name = "io_npc_data_id"))
-    @MapKeyColumn(name = "key")
-    @Column(name = "value")
-    @JsonProperty("scripted_events")
-    private Map<String, String> scriptedEvents;
-    /**
-     * Gets the map of scriptedEventss.
-     * @return {@link Map}<{@link String}, {@link String}>
-     */
-    public Map<String, String> getScriptedEvents() {
-        return scriptedEvents;
-    }
-    /**
-     * Sets the mapping for scriptedEventss.
-     * @param val the new value
-     */
-    public void setScriptedEvents(Map<String, String> val) {
-        scriptedEvents = val;
     }
 
     @ElementCollection

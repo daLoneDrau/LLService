@@ -355,28 +355,6 @@ public final class LLIoPcDataEntity {
     }
 
     @ElementCollection
-    @CollectionTable(name = "io_pc_data_scripted_events_lookup",
-  schema = "ll", joinColumns = @JoinColumn(name = "io_pc_data_id"))
-    @MapKeyColumn(name = "key")
-    @Column(name = "value")
-    @JsonProperty("scripted_events")
-    private Map<String, String> scriptedEvents;
-    /**
-     * Gets the map of scriptedEventss.
-     * @return {@link Map}<{@link String}, {@link String}>
-     */
-    public Map<String, String> getScriptedEvents() {
-        return scriptedEvents;
-    }
-    /**
-     * Sets the mapping for scriptedEventss.
-     * @param val the new value
-     */
-    public void setScriptedEvents(Map<String, String> val) {
-        scriptedEvents = val;
-    }
-
-    @ElementCollection
     @CollectionTable(name = "io_pc_data_attributes_lookup",
   schema = "ll", joinColumns = @JoinColumn(name = "io_pc_data_id"))
     @MapKeyColumn(name = "key")

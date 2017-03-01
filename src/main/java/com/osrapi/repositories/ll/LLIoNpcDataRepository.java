@@ -16,6 +16,12 @@ import com.osrapi.models.ll.LLIoNpcDataEntity;
 public interface LLIoNpcDataRepository
 extends CrudRepository<LLIoNpcDataEntity, Long> {
 	/**
+	 * Retrieves a list of io npc datas by their attacksPerRound.
+	 * @param attacksPerRound the attacksPerRound
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByAttacksPerRound(Long attacksPerRound);
+	/**
 	 * Retrieves a list of io npc datas by their behavior.
 	 * @param behavior the behavior
 	 * @return {@link List}<{@link LLIoNpcDataEntity}>
@@ -64,11 +70,23 @@ extends CrudRepository<LLIoNpcDataEntity, Long> {
 	 */
 	List<LLIoNpcDataEntity> findByCuts(Long cuts);
 	/**
-	 * Retrieves a list of io npc datas by their damages.
-	 * @param damages the damages
+	 * Retrieves a list of io npc datas by their description.
+	 * @param description the description
 	 * @return {@link List}<{@link LLIoNpcDataEntity}>
 	 */
-	List<LLIoNpcDataEntity> findByDamages(Float damages);
+	List<LLIoNpcDataEntity> findByDescription(String description);
+	/**
+	 * Retrieves a list of io npc datas by their hoardClass.
+	 * @param hoardClass the hoardClass
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByHoardClass(Long hoardClass);
+	/**
+	 * Retrieves a list of io npc datas by their icon.
+	 * @param icon the icon
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByIcon(String icon);
 	/**
 	 * Retrieves a list of io npc datas by their internalScript.
 	 * @param internalScript the internalScript
@@ -112,6 +130,24 @@ extends CrudRepository<LLIoNpcDataEntity, Long> {
 	 */
 	List<LLIoNpcDataEntity> findByModule(String module);
 	/**
+	 * Retrieves a list of io npc datas by their morale.
+	 * @param morale the morale
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByMorale(Long morale);
+	/**
+	 * Retrieves a list of io npc datas by their movePerRound.
+	 * @param movePerRound the movePerRound
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByMovePerRound(Long movePerRound);
+	/**
+	 * Retrieves a list of io npc datas by their movePerTurn.
+	 * @param movePerTurn the movePerTurn
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findByMovePerTurn(Long movePerTurn);
+	/**
 	 * Retrieves a list of io npc datas by their name.
 	 * @param name the name
 	 * @return {@link List}<{@link LLIoNpcDataEntity}>
@@ -123,6 +159,12 @@ extends CrudRepository<LLIoNpcDataEntity, Long> {
 	 * @return {@link List}<{@link LLIoNpcDataEntity}>
 	 */
 	List<LLIoNpcDataEntity> findByNpcFlags(Long npcFlags);
+	/**
+	 * Retrieves a list of io npc datas by their savingThrow.
+	 * @param savingThrow the savingThrow
+	 * @return {@link List}<{@link LLIoNpcDataEntity}>
+	 */
+	List<LLIoNpcDataEntity> findBySavingThrow(String savingThrow);
 	/**
 	 * Retrieves a list of io npc datas by their title.
 	 * @param title the title

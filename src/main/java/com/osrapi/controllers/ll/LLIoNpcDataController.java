@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.osrapi.models.ll.LLIoNpcDataEntity;
+import com.osrapi.models.ll.LLDiceEntity;
 import com.osrapi.models.ll.LLGenderEntity;
+import com.osrapi.models.ll.LLDiceEntity;
+import com.osrapi.models.ll.LLDiceEntity;
 import com.osrapi.models.ll.LLGroupEntity;
 import com.osrapi.models.ll.LLIoItemDataEntity;
 
@@ -279,9 +282,24 @@ public class LLIoNpcDataController {
             }
         }
 
+        if (entity.getDamages() != null
+        && entity.getDamages().getId() == null) {
+      setDamagesIdFromRepository(entity);
+        }
+
         if (entity.getGender() != null
         && entity.getGender().getId() == null) {
       setGenderIdFromRepository(entity);
+        }
+
+        if (entity.getNumberAppearing() != null
+        && entity.getNumberAppearing().getId() == null) {
+      setNumberAppearingIdFromRepository(entity);
+        }
+
+        if (entity.getNumberAppearingInLair() != null
+        && entity.getNumberAppearingInLair().getId() == null) {
+      setNumberAppearingInLairIdFromRepository(entity);
         }
 
 
@@ -533,9 +551,24 @@ public class LLIoNpcDataController {
             }
         }
 
+        if (entity.getDamages() != null
+        && entity.getDamages().getId() == null) {
+      setDamagesIdFromRepository(entity);
+        }
+
         if (entity.getGender() != null
         && entity.getGender().getId() == null) {
       setGenderIdFromRepository(entity);
+        }
+
+        if (entity.getNumberAppearing() != null
+        && entity.getNumberAppearing().getId() == null) {
+      setNumberAppearingIdFromRepository(entity);
+        }
+
+        if (entity.getNumberAppearingInLair() != null
+        && entity.getNumberAppearingInLair().getId() == null) {
+      setNumberAppearingInLairIdFromRepository(entity);
         }
 
 
@@ -545,6 +578,68 @@ public class LLIoNpcDataController {
                 savedEntity.getId());
         savedEntity = null;
         return list;
+    }
+
+  private void setDamagesIdFromRepository(
+      final LLIoNpcDataEntity entity) {
+    LLDiceEntity memberEntity = null;
+    List<Resource<LLDiceEntity>> list = null;
+    try {
+      Method method = null;
+      Field field = null;
+      try {
+        method = LLDiceController.class.getDeclaredMethod(
+            "getByName", new Class[] { String.class });
+        field = LLDiceEntity.class.getDeclaredField("name");
+      } catch (NoSuchMethodException | NoSuchFieldException e) {
+      }
+      if (method != null
+          && field != null) {
+        field.setAccessible(true);
+        if (field.get(entity.getDamages()) != null) {
+          list = (List<Resource<LLDiceEntity>>) method
+              .invoke(
+                  LLDiceController.getInstance(),
+                  (String) field
+                      .get(entity.getDamages()));
+        }
+      }
+      if (list == null) {
+        try {
+          method = LLDiceController.class.getDeclaredMethod(
+              "getByCode", new Class[] { String.class });
+          field = LLDiceEntity.class
+              .getDeclaredField("code");
+        } catch (NoSuchMethodException | NoSuchFieldException e) {
+        }
+        if (method != null
+            && field != null) {
+          field.setAccessible(true);
+          if (field.get(entity.getDamages()) != null) {
+            list = (List<Resource<LLDiceEntity>>)
+                method.invoke(LLDiceController
+                    .getInstance(),(String) field.get(
+                        entity.getDamages()));
+          }
+        }
+      }
+      method = null;
+      field = null;
+    } catch (SecurityException | IllegalArgumentException
+        | IllegalAccessException
+        | InvocationTargetException e) {
+    }
+    if (list != null
+        && !list.isEmpty()) {
+      memberEntity = list.get(0).getContent();
+    }
+    if (memberEntity == null) {
+      memberEntity = (LLDiceEntity)
+          ((Resource) LLDiceController.getInstance().save(
+              entity.getDamages()).get(0)).getContent();
+    }
+    entity.setDamages(memberEntity);
+    list = null;
     }
 
   private void setGenderIdFromRepository(
@@ -609,7 +704,150 @@ public class LLIoNpcDataController {
     list = null;
     }
 
+  private void setNumberAppearingIdFromRepository(
+      final LLIoNpcDataEntity entity) {
+    LLDiceEntity memberEntity = null;
+    List<Resource<LLDiceEntity>> list = null;
+    try {
+      Method method = null;
+      Field field = null;
+      try {
+        method = LLDiceController.class.getDeclaredMethod(
+            "getByName", new Class[] { String.class });
+        field = LLDiceEntity.class.getDeclaredField("name");
+      } catch (NoSuchMethodException | NoSuchFieldException e) {
+      }
+      if (method != null
+          && field != null) {
+        field.setAccessible(true);
+        if (field.get(entity.getNumberAppearing()) != null) {
+          list = (List<Resource<LLDiceEntity>>) method
+              .invoke(
+                  LLDiceController.getInstance(),
+                  (String) field
+                      .get(entity.getNumberAppearing()));
+        }
+      }
+      if (list == null) {
+        try {
+          method = LLDiceController.class.getDeclaredMethod(
+              "getByCode", new Class[] { String.class });
+          field = LLDiceEntity.class
+              .getDeclaredField("code");
+        } catch (NoSuchMethodException | NoSuchFieldException e) {
+        }
+        if (method != null
+            && field != null) {
+          field.setAccessible(true);
+          if (field.get(entity.getNumberAppearing()) != null) {
+            list = (List<Resource<LLDiceEntity>>)
+                method.invoke(LLDiceController
+                    .getInstance(),(String) field.get(
+                        entity.getNumberAppearing()));
+          }
+        }
+      }
+      method = null;
+      field = null;
+    } catch (SecurityException | IllegalArgumentException
+        | IllegalAccessException
+        | InvocationTargetException e) {
+    }
+    if (list != null
+        && !list.isEmpty()) {
+      memberEntity = list.get(0).getContent();
+    }
+    if (memberEntity == null) {
+      memberEntity = (LLDiceEntity)
+          ((Resource) LLDiceController.getInstance().save(
+              entity.getNumberAppearing()).get(0)).getContent();
+    }
+    entity.setNumberAppearing(memberEntity);
+    list = null;
+    }
 
+  private void setNumberAppearingInLairIdFromRepository(
+      final LLIoNpcDataEntity entity) {
+    LLDiceEntity memberEntity = null;
+    List<Resource<LLDiceEntity>> list = null;
+    try {
+      Method method = null;
+      Field field = null;
+      try {
+        method = LLDiceController.class.getDeclaredMethod(
+            "getByName", new Class[] { String.class });
+        field = LLDiceEntity.class.getDeclaredField("name");
+      } catch (NoSuchMethodException | NoSuchFieldException e) {
+      }
+      if (method != null
+          && field != null) {
+        field.setAccessible(true);
+        if (field.get(entity.getNumberAppearingInLair()) != null) {
+          list = (List<Resource<LLDiceEntity>>) method
+              .invoke(
+                  LLDiceController.getInstance(),
+                  (String) field
+                      .get(entity.getNumberAppearingInLair()));
+        }
+      }
+      if (list == null) {
+        try {
+          method = LLDiceController.class.getDeclaredMethod(
+              "getByCode", new Class[] { String.class });
+          field = LLDiceEntity.class
+              .getDeclaredField("code");
+        } catch (NoSuchMethodException | NoSuchFieldException e) {
+        }
+        if (method != null
+            && field != null) {
+          field.setAccessible(true);
+          if (field.get(entity.getNumberAppearingInLair()) != null) {
+            list = (List<Resource<LLDiceEntity>>)
+                method.invoke(LLDiceController
+                    .getInstance(),(String) field.get(
+                        entity.getNumberAppearingInLair()));
+          }
+        }
+      }
+      method = null;
+      field = null;
+    } catch (SecurityException | IllegalArgumentException
+        | IllegalAccessException
+        | InvocationTargetException e) {
+    }
+    if (list != null
+        && !list.isEmpty()) {
+      memberEntity = list.get(0).getContent();
+    }
+    if (memberEntity == null) {
+      memberEntity = (LLDiceEntity)
+          ((Resource) LLDiceController.getInstance().save(
+              entity.getNumberAppearingInLair()).get(0)).getContent();
+    }
+    entity.setNumberAppearingInLair(memberEntity);
+    list = null;
+    }
+
+
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a attacksPerRound.
+     * @param attacksPerRound the io_npc_data' attacksPerRound
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "attacks_per_round/{attacksPerRound}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByAttacksPerRound(
+            @PathVariable final Long attacksPerRound) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByAttacksPerRound(attacksPerRound)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
     /**
      * Gets a list of {@link LLIoNpcDataEntity}s that share a behavior.
      * @param behavior the io_npc_data' behavior
@@ -763,15 +1001,53 @@ public class LLIoNpcDataController {
         return resources;
     }
     /**
-     * Gets a list of {@link LLIoNpcDataEntity}s that share a damages.
-     * @param damages the io_npc_data' damages
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a description.
+     * @param description the io_npc_data' description
      * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
      */
-    @RequestMapping(path = "damages/{damages}",
+    @RequestMapping(path = "description/{description}",
             method = RequestMethod.GET)
-    public List<Resource<LLIoNpcDataEntity>> getByDamages(
-            @PathVariable final Float damages) {
-        Iterator<LLIoNpcDataEntity> iter = repository.findByDamages(damages)
+    public List<Resource<LLIoNpcDataEntity>> getByDescription(
+            @PathVariable final String description) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByDescription(description)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a hoardClass.
+     * @param hoardClass the io_npc_data' hoardClass
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "hoard_class/{hoardClass}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByHoardClass(
+            @PathVariable final Long hoardClass) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByHoardClass(hoardClass)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a icon.
+     * @param icon the io_npc_data' icon
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "icon/{icon}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByIcon(
+            @PathVariable final String icon) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByIcon(icon)
                 .iterator();
         List<Resource<LLIoNpcDataEntity>> resources =
                 new ArrayList<Resource<LLIoNpcDataEntity>>();
@@ -915,6 +1191,63 @@ public class LLIoNpcDataController {
         return resources;
     }
     /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a morale.
+     * @param morale the io_npc_data' morale
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "morale/{morale}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByMorale(
+            @PathVariable final Long morale) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByMorale(morale)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a movePerRound.
+     * @param movePerRound the io_npc_data' movePerRound
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "move_per_round/{movePerRound}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByMovePerRound(
+            @PathVariable final Long movePerRound) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByMovePerRound(movePerRound)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a movePerTurn.
+     * @param movePerTurn the io_npc_data' movePerTurn
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "move_per_turn/{movePerTurn}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getByMovePerTurn(
+            @PathVariable final Long movePerTurn) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findByMovePerTurn(movePerTurn)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
      * Gets a list of {@link LLIoNpcDataEntity}s that share a name.
      * @param name the io_npc_data' name
      * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
@@ -943,6 +1276,25 @@ public class LLIoNpcDataController {
     public List<Resource<LLIoNpcDataEntity>> getByNpcFlags(
             @PathVariable final Long npcFlags) {
         Iterator<LLIoNpcDataEntity> iter = repository.findByNpcFlags(npcFlags)
+                .iterator();
+        List<Resource<LLIoNpcDataEntity>> resources =
+                new ArrayList<Resource<LLIoNpcDataEntity>>();
+        while (iter.hasNext()) {
+            resources.add(getIoNpcDataResource(iter.next()));
+        }
+        iter = null;
+        return resources;
+    }
+    /**
+     * Gets a list of {@link LLIoNpcDataEntity}s that share a savingThrow.
+     * @param savingThrow the io_npc_data' savingThrow
+     * @return {@link List}<{@link Resource}<{@link LLIoNpcDataEntity}>>
+     */
+    @RequestMapping(path = "saving_throw/{savingThrow}",
+            method = RequestMethod.GET)
+    public List<Resource<LLIoNpcDataEntity>> getBySavingThrow(
+            @PathVariable final String savingThrow) {
+        Iterator<LLIoNpcDataEntity> iter = repository.findBySavingThrow(savingThrow)
                 .iterator();
         List<Resource<LLIoNpcDataEntity>> resources =
                 new ArrayList<Resource<LLIoNpcDataEntity>>();
